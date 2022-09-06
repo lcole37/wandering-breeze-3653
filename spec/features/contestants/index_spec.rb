@@ -37,18 +37,18 @@ RSpec.describe "As a visitor" do
     it "And under each contestants name I see a list of the projects (names) that they've been on" do
       within "#contestant-#{@jay.id}" do
         expect(page).to have_content(@news_chic.name)
-        expect(page).to_not have_content(@upholstry_tux.name)
+        expect(page).to_not have_content(@upholstery_tux.name)
       end
 
       within "#contestant-#{@gretchen.id}" do
         expect(page).to have_content(@news_chic.name)
-        expect(page).to have_content(@upholstry_tux.name)
+        expect(page).to have_content(@upholstery_tux.name)
         expect(page).to_not have_content(@boardfit.name)
       end
 
       within "#contestant-#{@kentaro.id}" do
         expect(page).to have_content(@boardfit.name)
-        expect(page).to have_content(@upholstry_tux.name)
+        expect(page).to have_content(@upholstery_tux.name)
         expect(page).to_not have_content(@news_chic.name)
       end
 
