@@ -1,20 +1,7 @@
 require 'rails_helper'
 
-
-RSpec.describe Contestant, type: :model do
-  describe "validations" do
-    it {should validate_presence_of :name}
-    it {should validate_presence_of :age}
-    it {should validate_presence_of :hometown}
-    it {should validate_presence_of :years_of_experience}
-  end
-
-  describe "relationships" do
-    it {should have_many :contestant_projects}
-    it {should have_many(:projects).through(:contestant_projects)}
-  end
-
-  describe "class methods" do
+RSpec.describe "As a visitor," do
+  describe "When I visit a project's show page" do
     before :each do
       @recycled_material_challenge = Challenge.create!(theme: "Recycled Material", project_budget: 1000)
       @furniture_challenge = Challenge.create!(theme: "Apartment Furnishings", project_budget: 1000)
@@ -30,15 +17,16 @@ RSpec.describe Contestant, type: :model do
       @kentaro = Contestant.create!(name: "Kentaro Kameyama", age: 30, hometown: "Boston", years_of_experience: 8)
       @erin = Contestant.create!(name: "Erin Robertson", age: 44, hometown: "Denver", years_of_experience: 15)
 
-      ContestantProject.create!(contestant_id: @jay.id, project_id: @news_chic.id)
-      ContestantProject.create!(contestant_id: @jay.id, project_id: @lit_fit.id)
-      ContestantProject.create!(contestant_id: @gretchen.id, project_id: @news_chic.id)
+      visit "/projects/#{@lit_fit.id}"
     end
 
-    describe 'projects' do
-      it "returns all projects under this contestant (as comma separated string)" do
-        expect(@jay.projects).to eq("News Chic, Litfit")
-      end
+    it "I see that project's name and material" do
+      expect(page).to have_content("Litfit")
+      expect(page).to have_content("Material: Lamp Shade")
+    end
+
+    it "And I also see the theme of the challenge that this project belongs to." do
+      expect(page).to have_content("Challenge Theme: Apartment Furnishings")
     end
   end
 end
