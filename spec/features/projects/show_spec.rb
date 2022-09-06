@@ -17,6 +17,10 @@ RSpec.describe "As a visitor," do
       @kentaro = Contestant.create!(name: "Kentaro Kameyama", age: 30, hometown: "Boston", years_of_experience: 8)
       @erin = Contestant.create!(name: "Erin Robertson", age: 44, hometown: "Denver", years_of_experience: 15)
 
+      ContestantProject.create!(contestant_id: @jay.id, project_id: @lit_fit.id)
+      ContestantProject.create!(contestant_id: @gretchen.id, project_id: @lit_fit.id)
+      ContestantProject.create!(contestant_id: @kentaro.id, project_id: @lit_fit.id)
+
       visit "/projects/#{@lit_fit.id}"
     end
 
@@ -27,6 +31,10 @@ RSpec.describe "As a visitor," do
 
     it "And I also see the theme of the challenge that this project belongs to." do
       expect(page).to have_content("Challenge Theme: Apartment Furnishings")
+    end
+          #user story 3
+    it "I see a count of the number of contestants on this project" do
+      expect(page).to have_content("Number of Contestants: 3")
     end
   end
 end
