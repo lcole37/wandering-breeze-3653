@@ -27,6 +27,7 @@ RSpec.describe "As a visitor," do
     it "I see that project's name and material" do
       expect(page).to have_content("Litfit")
       expect(page).to have_content("Material: Lamp Shade")
+      expect(page).to_not have_content("Material: Couch")
     end
 
     it "And I also see the theme of the challenge that this project belongs to." do
@@ -35,6 +36,10 @@ RSpec.describe "As a visitor," do
           #user story 3
     it "I see a count of the number of contestants on this project" do
       expect(page).to have_content("Number of Contestants: 3")
+    end
+        #extension 1
+    it "I see the average years of experience for the contestants that worked on that project" do
+      expect(page).to have_content("Average Contestant Experience: 11 years")
     end
   end
 end
